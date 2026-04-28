@@ -1,30 +1,5 @@
 # spring.application.name=consulta
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/pje
-    username: readonly
-    password: readonly
-    hikari:
-      read-only: true
-      maximum-pool-size: 20
-
-  jpa:
-    hibernate:
-      ddl-auto: none
-    properties:
-      hibernate:
-        format_sql: false
-        jdbc:
-          fetch_size: 100
-        default_batch_fetch_size: 100
-
-logging:
-  level:
-    root: INFO
-
-app:
-  datasource:
-    logs:
-      url: jdbc:postgresql://localhost:5432/logs
-      username: logs
-      password: logs
+  profiles:
+    active: local
+    
