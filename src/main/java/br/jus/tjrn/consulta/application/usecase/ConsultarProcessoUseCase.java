@@ -1,7 +1,7 @@
 package br.jus.tjrn.consulta.application.usecase;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.jus.tjrn.consulta.domain.model.Processo;
@@ -15,9 +15,9 @@ public class ConsultarProcessoUseCase {
 
     private final ProcessoRepository repository;
 
-    public List<Processo> executar(ProcessoFiltro filtro) {
+    public Page<Processo> executar(ProcessoFiltro filtro, Pageable pageable) {
         validarFiltro(filtro);
-        return repository.consultar(filtro);
+        return repository.consultar(filtro, pageable);
     }
 
     private void validarFiltro(ProcessoFiltro filtro) {

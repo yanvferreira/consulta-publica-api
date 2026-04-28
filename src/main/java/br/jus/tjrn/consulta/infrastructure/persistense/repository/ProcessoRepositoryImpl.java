@@ -1,7 +1,8 @@
 package br.jus.tjrn.consulta.infrastructure.persistense.repository;
 
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import br.jus.tjrn.consulta.domain.model.Processo;
@@ -17,10 +18,19 @@ public class ProcessoRepositoryImpl implements ProcessoRepository {
     private final ProcessoJpaRepository repository;
 
     @Override
-    public List<Processo> consultar(ProcessoFiltro filtro) {
-        return repository.findAll().stream()
-                .map(this::toDomain)
-                .toList();
+    public Page<Processo> consultar(ProcessoFiltro filtro, Pageable pageable) {
+
+        return repository.consultar(
+            filtro.getNumero(),
+            filtro.getNumeroReferencia(),
+            filtro.getCpfCnpj(),
+            filtro.getClasseJudicial(),
+            filtro.getNomeParte(),
+            filtro.getNomeAdvogado(),
+            filtro.getDataInicio(),
+            filtro.getDataFim(),
+            pageable
+        ).map(this::toDomain);
     }
 
     private Processo toDomain(ProcessoEntity entity) {

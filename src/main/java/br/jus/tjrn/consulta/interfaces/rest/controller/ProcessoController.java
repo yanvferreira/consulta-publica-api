@@ -3,6 +3,9 @@ package br.jus.tjrn.consulta.interfaces.rest.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +24,7 @@ public class ProcessoController {
     private final ConsultarProcessoUseCase consultarProcessoUseCase;
 
     @GetMapping
-    public List<Processo> consultar(
+    public Page<Processo> consultar(
         @RequestParam(required = false) String numero,
         @RequestParam(required = false) String numeroReferencia,
         @RequestParam(required = false) String nomeParte,
@@ -31,9 +34,10 @@ public class ProcessoController {
         @RequestParam(required = false) String oab,
         @RequestParam(required = false) String ufoab,
         @RequestParam(required = false) LocalDate dataInicio,
-        @RequestParam(required = false) LocalDate dataFim
+        @RequestParam(required = false) LocalDate dataFim,
+        @PageableDefault(size = 20) Pageable pageable
     ) {
-        
+
         ProcessoFiltro filtro = ProcessoFiltro.builder()
             .numero(numero)
             .numeroReferencia(numeroReferencia)
@@ -47,7 +51,7 @@ public class ProcessoController {
             .dataFim(dataFim)
             .build();
 
-        return consultarProcessoUseCase.executar(filtro);
+        return consultarProcessoUseCase.executar(filtro, pageable);
     }
 
 
