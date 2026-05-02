@@ -16,8 +16,9 @@ public class ConsultarProcessoUseCase {
     private final ProcessoRepository repository;
 
     public Page<Processo> executar(ProcessoFiltro filtro, Pageable pageable) {
-        validarFiltro(filtro);
-        return repository.consultar(filtro, pageable);
+        ProcessoFiltro filtroNormalizado = filtro.normalizar();
+        validarFiltro(filtroNormalizado);
+        return repository.consultar(filtroNormalizado, pageable);
     }
 
     private void validarFiltro(ProcessoFiltro filtro) {

@@ -22,19 +22,20 @@ public class ProcessoRepositoryImpl implements ProcessoRepository {
 
         return repository.consultar(
             filtro.getNumero(),
-            filtro.getNumeroReferencia(),
+            /* filtro.getNumeroReferencia(),
             filtro.getCpfCnpj(),
             filtro.getClasseJudicial(),
             filtro.getNomeParte(),
             filtro.getNomeAdvogado(),
             filtro.getDataInicio(),
-            filtro.getDataFim(),
+            filtro.getDataFim(), */
             pageable
         ).map(this::toDomain);
     }
 
     private Processo toDomain(ProcessoEntity entity) {
         return Processo.builder()
+                .idProcesso(entity.getIdProcesso())
                 .numero(entity.getNumero())
                 .build();    
     }

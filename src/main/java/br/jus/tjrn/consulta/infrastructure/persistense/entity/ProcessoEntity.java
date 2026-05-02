@@ -16,7 +16,7 @@ public class ProcessoEntity {
 
     @Id
     @Column(name = "id_processo")
-    private Integer id;
+    private Integer idProcesso;
 
     @Column(name = "nr_processo")
     private String numero;
@@ -35,7 +35,5 @@ public class ProcessoEntity {
 
     // @Column(name = "ds_classe_judicial")
     // private String classeJudicial;
-
-
     
 }

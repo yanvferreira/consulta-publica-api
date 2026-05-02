@@ -13,35 +13,34 @@ import br.jus.tjrn.consulta.infrastructure.persistense.entity.ProcessoEntity;
 public interface ProcessoJpaRepository extends JpaRepository<ProcessoEntity, Integer> {
 
     @Query(value = """
-            SELECT * FROM tb_processo p
+            SELECT p.* FROM tb_processo p
+            INNER JOIN tb_processo_trf tpt
+                ON p.id_processo = tpt.id_processo_trf
             WHERE
-                (:numero IS NULL OR p.numero = :numero)
-            AND (:numeroReferencia IS NULL OR p.numero_referencia = :numeroReferencia)
-            AND (:cpfCnpj IS NULL OR p.cpf_cnpj = :cpfCnpj)
-            AND (:classeJudicial IS NULL OR LOWER(p.classe_judicial) LIKE LOWER(CONCAT('%', :classeJudicial, '%')))
-            AND (:nomeParte IS NULL OR LOWER(p.nome_parte) LIKE LOWER(CONCAT('%', :nomeParte, '%')))
-            AND (:nomeAdvogado IS NULL OR LOWER(p.nome_advogado) LIKE LOWER(CONCAT('%', :nomeAdvogado, '%')))
-            AND (:dataInicio IS NULL OR p.data_autuacao >= :dataInicio)
-            AND (:dataFim IS NULL OR p.data_autuacao <= :dataFim)
+                (:numero IS NULL OR p.nr_processo = :numero)
+            AND tpt.cd_processo_status = 'D'
+            AND tpt.in_segredo_justica = false
             """,
             countQuery = """
                 SELECT COUNT(*) FROM processo p
+                INNER JOIN tb_processo_trf tpt
+                    ON p.id_processo = tpt.id_processo_trf
                 WHERE
-                    (:numero IS NULL OR p.numero = :numero)
-                AND (:numeroReferencia IS NULL OR p.numero_referencia = :numeroReferencia)
-                AND (:cpfCnpj IS NULL OR p.cpf_cnpj = :cpfCnpj)
+                    (:numero IS NULL OR p.nr_processo = :numero)
+                AND tpt.cd_processo_status = 'D'
+                AND tpt.in_segredo_justica = false
                 """,
             nativeQuery = true
         )
-        Page<ProcessoEntity> consultar(
-            @Param("numero") String numero,
-            @Param("numeroReferencia") String numeroReferencia,
-            @Param("cpfCnpj") String cpfCnpj,
-            @Param("classeJudicial") String classeJudicial,
-            @Param("nomeParte") String nomeParte,
-            @Param("nomeAdvogado") String nomeAdvogado,
-            @Param("dataInicio") LocalDate dataInicio,
-            @Param("dataFim") LocalDate dataFim,
-            Pageable pageable
-        );
+    Page<ProcessoEntity> consultar(
+        @Param("numero") String numero,
+        /* @Param("numeroReferencia") String numeroReferencia,
+        @Param("cpfCnpj") String cpfCnpj,
+        @Param("classeJudicial") String classeJudicial,
+        @Param("nomeParte") String nomeParte,
+        @Param("nomeAdvogado") String nomeAdvogado,
+        @Param("dataInicio") LocalDate dataInicio,
+        @Param("dataFim") LocalDate dataFim, */
+        Pageable pageable
+    );
 }
