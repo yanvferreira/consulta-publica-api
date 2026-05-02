@@ -9,5 +9,8 @@ import br.jus.tjrn.consulta.domain.model.ProcessoFiltro;
 
 public interface ProcessoRepository {
     
-    Page<Processo> consultar(ProcessoFiltro filtro, Pageable pageable);
+    Page<Processo> consultarCabecalhoProcesso(ProcessoFiltro filtro, Pageable pageable);
+
+    Page<Processo> consultaJPANativa(ProcessoFiltro filtro, Pageable pageable);
+
 }
