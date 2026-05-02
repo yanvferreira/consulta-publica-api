@@ -23,6 +23,7 @@ public class ProcessoRepositoryImpl implements ProcessoRepository {
 
         return jpaRepository.consultar(
             filtro.getNumero(),
+            filtro.getClasseJudicial(),
             /* filtro.getNumeroReferencia(),
             filtro.getCpfCnpj(),
             filtro.getClasseJudicial(),
@@ -38,6 +39,7 @@ public class ProcessoRepositoryImpl implements ProcessoRepository {
         return Processo.builder()
                 .idProcesso(entity.getIdProcesso())
                 .numero(entity.getNumero())
+                .classeJudicial(entity.getClasseJudicial())
                 .build();    
     }
 

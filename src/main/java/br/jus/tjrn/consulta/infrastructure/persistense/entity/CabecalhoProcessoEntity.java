@@ -31,6 +31,9 @@ public class CabecalhoProcessoEntity {
     @Column(name = "in_segredo_justica")
     private boolean segredoJustica;
 
+    @Column(name = "cd_classe_judicial")
+    private String codigoClasseJudicial;
+
     @Column(name = "ds_classe_judicial")
     private String classeJudicial;
 

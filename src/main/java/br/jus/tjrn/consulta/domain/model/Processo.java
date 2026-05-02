@@ -8,4 +8,5 @@ import lombok.Value;
 public class Processo {
     int idProcesso;
     String numero;
+    String classeJudicial;
 }

@@ -15,11 +15,13 @@ public interface ProcessoJpaRepository extends JpaRepository<ProcessoEntity, Int
 
     @Query(
         value = "SELECT cp FROM CabecalhoProcessoEntity cp " +
-            "WHERE (:numero IS NULL OR cp.numero = :numero) " +
-            "AND cp.status = 'D' AND cp.segredoJustica = false "
+            "WHERE cp.status = 'D' AND cp.segredoJustica = false " +
+            "AND (:numero IS NULL OR cp.numero = :numero) " +
+            "AND (:classeJudicial IS NULL OR cp.classeJudicial = :classeJudicial) "
         )
     Page<CabecalhoProcessoEntity> consultar(
         @Param("numero") String numero,
+        @Param("classeJudicial") String classeJudicial,
         /* @Param("numeroReferencia") String numeroReferencia,
         @Param("cpfCnpj") String cpfCnpj,
         @Param("classeJudicial") String classeJudicial,
