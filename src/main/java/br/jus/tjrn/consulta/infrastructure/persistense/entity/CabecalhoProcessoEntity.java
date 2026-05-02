@@ -34,7 +34,31 @@ public class CabecalhoProcessoEntity {
     @Column(name = "cd_classe_judicial")
     private String codigoClasseJudicial;
 
+    @Column(name = "ds_classe_judicial_sigla")
+    private String siglaClasseJudicial;
+
     @Column(name = "ds_classe_judicial")
     private String classeJudicial;
+
+    @Column(name = "ds_assunto_principal")
+    private String assuntoPrincipal;
+
+    @Column(name = "nm_pessoa_autor")
+    private String nomeAutor;
+
+    @Column(name = "nm_pessoa_reu")
+    private String nomeReu;
+
+    @Column(name = "qt_autor")
+    private Integer quantidadeAutores;
+
+    @Column(name = "qt_reu")
+    private Integer quantidadeReus;
+
+    @Column(name = "ds_ultimo_movimento_externo")
+    private String ultimoMovimentoExterno;
+
+    @Column(name = "dt_ultimo_movimento_externo", columnDefinition = "TIMESTAMP")
+    private String dataUltimoMovimentoExterno;
 
 }

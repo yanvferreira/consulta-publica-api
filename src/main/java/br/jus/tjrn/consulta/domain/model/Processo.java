@@ -8,5 +8,13 @@ import lombok.Value;
 public class Processo {
     int idProcesso;
     String numero;
+    String siglaClasseJudicial;
     String classeJudicial;
+    String assuntoPrincipal;
+    String nomeAutor;
+    String nomeReu;
+    int quantidadeAutores;
+    int quantidadeReus;
+    String ultimoMovimentoExterno;
+    String dataUltimoMovimentoExterno;
 }

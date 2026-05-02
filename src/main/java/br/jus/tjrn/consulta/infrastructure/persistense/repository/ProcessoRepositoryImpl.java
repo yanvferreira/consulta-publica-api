@@ -40,6 +40,14 @@ public class ProcessoRepositoryImpl implements ProcessoRepository {
                 .idProcesso(entity.getIdProcesso())
                 .numero(entity.getNumero())
                 .classeJudicial(entity.getClasseJudicial())
+                .siglaClasseJudicial(entity.getSiglaClasseJudicial())
+                .assuntoPrincipal(entity.getAssuntoPrincipal())
+                .nomeAutor(entity.getNomeAutor())
+                .quantidadeAutores(entity.getQuantidadeAutores())
+                .nomeReu(entity.getNomeReu())
+                .quantidadeReus(entity.getQuantidadeReus())
+                .ultimoMovimentoExterno(entity.getUltimoMovimentoExterno())
+                .dataUltimoMovimentoExterno(entity.getDataUltimoMovimentoExterno())
                 .build();    
     }
 
