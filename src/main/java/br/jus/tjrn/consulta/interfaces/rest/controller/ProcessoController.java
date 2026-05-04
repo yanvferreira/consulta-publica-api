@@ -1,7 +1,6 @@
 package br.jus.tjrn.consulta.interfaces.rest.controller;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.jus.tjrn.consulta.application.usecase.ConsultarProcessoUseCase;
 import br.jus.tjrn.consulta.domain.model.Processo;
 import br.jus.tjrn.consulta.domain.model.ProcessoFiltro;
+import br.jus.tjrn.consulta.shared.response.ApiResponse;
+import br.jus.tjrn.consulta.shared.response.PageResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -24,7 +25,7 @@ public class ProcessoController {
     private final ConsultarProcessoUseCase consultarProcessoUseCase;
 
     @GetMapping
-    public Page<Processo> consultar(
+    public ApiResponse<PageResponse<Processo>> consultar(
         @RequestParam(required = false) String numero,
         @RequestParam(required = false) String numeroReferencia,
         @RequestParam(required = false) String nomeParte,
@@ -51,7 +52,14 @@ public class ProcessoController {
             .dataFim(dataFim)
             .build();
 
-        return consultarProcessoUseCase.executar(filtro, pageable);
+        
+        Page<Processo> page = consultarProcessoUseCase.executar(filtro, pageable);
+
+        return ApiResponse.<PageResponse<Processo>>builder()
+            .success(true)
+            .message("Consulta realizada com sucesso")
+            .data(new PageResponse<>(page))
+            .build();
     }
 
 
