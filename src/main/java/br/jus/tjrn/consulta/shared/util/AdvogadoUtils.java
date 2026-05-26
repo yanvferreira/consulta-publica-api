@@ -31,4 +31,16 @@ public class AdvogadoUtils {
         return limpo;
     }
 
+    public static String normalizarUF(String ufOab) {
+        if (ufOab == null || ufOab.isBlank()) {
+            return null;
+        }
+
+        if (ufOab.length() != 2) {
+            throw new IllegalArgumentException("UF da OAB deve conter 2 caracteres");
+        }
+
+        return ufOab.toUpperCase();
+    }
+
 }

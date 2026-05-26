@@ -31,6 +31,7 @@ public class ProcessoFiltro {
             .nomeAdvogado(nomeAdvogado != null ? AdvogadoUtils.validarNome(nomeAdvogado) : null)
             .cpfCnpj(cpfCnpj != null ? ProcessoParteUtils.validarCpfCnpj(cpfCnpj) : null)
             .oab(oab != null ? AdvogadoUtils.normalizarOab(oab) : null)
+            .ufOab(ufOab != null ? AdvogadoUtils.normalizarUF(ufOab) : null)
             .build();
     }
 
