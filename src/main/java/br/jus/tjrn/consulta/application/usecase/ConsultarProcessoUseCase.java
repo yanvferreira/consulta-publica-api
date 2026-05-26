@@ -22,28 +22,35 @@ public class ConsultarProcessoUseCase {
 
         ProcessoFiltro filtroNormalizado = filtro.normalizar();
 
-        boolean executarConsultaNativa = validarFiltro(filtroNormalizado);
+        this.validarFiltro(filtroNormalizado);
 
-        return executarConsultaNativa
+        return this.consultaNativa(filtroNormalizado)
             ? repository.consultaJPANativa(filtroNormalizado, pageable)
             : repository.consultarCabecalhoProcesso(filtroNormalizado, pageable);
     }
 
     /**
-     * Valida os filtros e define se a consulta deve ser feita via JPA Specification ou JPQL nativo.
+     * Valida os filtros.
      * 
      * @param filtro
      * @return boolean indicando se a consulta nativa deve ser executada
      */
-    private boolean validarFiltro(ProcessoFiltro filtro) { 
+    private void validarFiltro(ProcessoFiltro filtro) { 
         if (filtro.isVazio()) {
             throw new IllegalArgumentException("Ao menos um campo deve ser informado.");
         }
 
         if (filtro.getDataInicio() != null && filtro.getDataFim() != null) {
             ProcessoDataUtils.verificaInicioFim(filtro.getDataInicio(), filtro.getDataFim());
-        }
+        }       
+    }
 
+    /**
+     * Verifica se a consulta deve ser executada com quuery nativa
+     * 
+     * @param filtro
+     */
+    private boolean consultaNativa(ProcessoFiltro filtro) {
         return Objects.nonNull(filtro.getNomeAdvogado()) ||
                Objects.nonNull(filtro.getNomeParte()) ||
                Objects.nonNull(filtro.getCpfCnpj()) ||

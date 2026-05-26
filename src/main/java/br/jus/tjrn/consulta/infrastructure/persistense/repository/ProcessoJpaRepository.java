@@ -24,12 +24,25 @@ public interface ProcessoJpaRepository extends JpaRepository<CabecalhoProcessoEn
             AND (:classeJudicial IS NULL OR tcp.ds_classe_judicial = :classeJudicial) 
             AND (:nomeParte IS NULL OR EXISTS (
                 SELECT 1 FROM tb_processo_parte tpp 
-                INNER JOIN tb_usuario_login tul on tpp.id_pessoa = tul.id_usuario 
+                INNER JOIN tb_pess_doc_identificacao tpdi on tpdi.id_pessoa = tpp.id_pessoa 
                 WHERE tpp.id_processo_trf = tcp.id_processo_trf
                 AND tpp.in_parte_principal = true
                 AND tpp.in_situacao = 'A'
                 AND tpp.in_participacao IN ('A', 'P')
-                AND tul.ds_nome ILIKE CONCAT(:nomeParte, '%')
+                AND tpdi.in_ativo = true
+                AND tpdi.ds_nome_pessoa ILIKE CONCAT(:nomeParte, '%')
+            ))
+            AND (:nomeAdvogado IS NULL OR EXISTS (
+                SELECT 1 FROM tb_processo_parte tpp
+                INNER JOIN tb_proc_parte_represntante tppr on tppr.id_processo_parte = tpp.id_processo_parte 
+                INNER JOIN tb_pess_doc_identificacao tpdi on tpdi.id_pessoa = tppr.id_representante  
+                WHERE tpp.id_processo_trf = tcp.id_processo_trf
+                AND tpp.in_parte_principal = false
+                AND tpp.in_situacao = 'A'
+                AND tppr.id_tipo_representante = 7
+                AND tppr.in_situacao = 'A'
+                AND tpdi.in_ativo = true
+                AND tpdi.ds_nome_pessoa = (:nomeAdvogado)
             ))
         """,
         countQuery = """
@@ -46,6 +59,18 @@ public interface ProcessoJpaRepository extends JpaRepository<CabecalhoProcessoEn
                 AND tpp.in_situacao = 'A'
                 AND tpp.in_participacao IN ('A', 'P')
                 AND tul.ds_nome ILIKE CONCAT(:nomeParte, '%')
+            ))
+            AND (:nomeAdvogado IS NULL OR EXISTS (
+                SELECT 1 FROM tb_processo_parte tpp
+                INNER JOIN tb_proc_parte_represntante tppr on tppr.id_processo_parte = tpp.id_processo_parte 
+                INNER JOIN tb_pess_doc_identificacao tpdi on tpdi.id_pessoa = tppr.id_representante  
+                WHERE tpp.id_processo_trf = tcp.id_processo_trf
+                AND tpp.in_parte_principal = false
+                AND tpp.in_situacao = 'A'
+                AND tppr.id_tipo_representante = 7
+                AND tppr.in_situacao = 'A'
+                AND tpdi.in_ativo = true
+                AND tpdi.ds_nome_pessoa = (:nomeAdvogado)
             ))
         """,
         nativeQuery = true

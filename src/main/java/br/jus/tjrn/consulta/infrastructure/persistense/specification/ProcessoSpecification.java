@@ -12,8 +12,9 @@ public class ProcessoSpecification {
      * Usar para consultas com filtros apenas na Entidade CabecalhoProcessoEntity.
      * Para filtros com relacionamentos, utilizar Native Query para performance otimizada.
      * 
-     * @param filtro
-     * @return Specification<CabecalhoProcessoEntity>
+     * @param filtro {@link ProcessoFiltro}
+     * @return {@link Specification}
+     * @see CabecalhoProcessoEntity
      */
     public static Specification<CabecalhoProcessoEntity> filtro(ProcessoFiltro filtro) {
 
