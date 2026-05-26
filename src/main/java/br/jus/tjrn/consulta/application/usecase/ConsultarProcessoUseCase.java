@@ -54,7 +54,9 @@ public class ConsultarProcessoUseCase {
         return Objects.nonNull(filtro.getNomeAdvogado()) ||
                Objects.nonNull(filtro.getNomeParte()) ||
                Objects.nonNull(filtro.getCpfCnpj()) ||
-               Objects.nonNull(filtro.getOab());
+               Objects.nonNull(filtro.getOab()) ||
+               Objects.nonNull(filtro.getUfOab()) ||
+               Objects.nonNull(filtro.getNumeroReferencia());
     }
 
 }

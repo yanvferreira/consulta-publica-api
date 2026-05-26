@@ -31,6 +31,13 @@ public class ProcessoQueryBuilder {
             FROM tb_cabecalho_processo tcp 
         """);
 
+        if (filtro.getNumeroReferencia() != null) {
+            query.append("""
+                INNER JOIN tb_processo_trf tpt
+                    ON tpt.id_processo_trf = tcp.id_processo_trf
+            """);
+        }
+
         if (filtro.getNomeParte() != null) {
             query.append("""
                 INNER JOIN tb_processo_parte tpp
@@ -74,6 +81,15 @@ public class ProcessoQueryBuilder {
         if (filtro.getClasseJudicial() != null) {
             query.append(" AND tcp.ds_classe_judicial = :classeJudicial ");
             params.put("classeJudicial", filtro.getClasseJudicial());
+        }
+
+        if (filtro.getNumeroReferencia() != null) {
+            query.append("""
+                AND tpt.id_proc_referencia IS NOT NULL
+                AND tpt.ds_proc_referencia = :numeroReferencia
+            """);
+
+            params.put("numeroReferencia", filtro.getNumeroReferencia());
         }
 
         if (filtro.getNomeParte() != null) {

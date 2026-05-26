@@ -27,6 +27,7 @@ public class ProcessoFiltro {
     public ProcessoFiltro normalizar() {
         return this.toBuilder()
             .numero(numero != null ? ProcessoNumeroUtils.normalizar(numero) : null)
+            .numeroReferencia(numeroReferencia != null ? ProcessoNumeroUtils.normalizar(numeroReferencia) : null)
             .nomeParte(nomeParte != null ? ProcessoParteUtils.validarNome(nomeParte) : null)
             .nomeAdvogado(nomeAdvogado != null ? AdvogadoUtils.validarNome(nomeAdvogado) : null)
             .cpfCnpj(cpfCnpj != null ? ProcessoParteUtils.validarCpfCnpj(cpfCnpj) : null)

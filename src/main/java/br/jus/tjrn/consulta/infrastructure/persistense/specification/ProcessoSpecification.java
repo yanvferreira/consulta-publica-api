@@ -40,19 +40,6 @@ public class ProcessoSpecification {
                 );
             }
 
-            // if (filtro.getNomeParte() != null) {
-            //     Join<CabecalhoProcessoEntity, ProcessoParteEntity> partesJoin = root.join("processoPartes", JoinType.INNER);
-            //     Join<ProcessoParteEntity, PessoaEntity> pessoaJoin = partesJoin.join("pessoa", JoinType.INNER);
-
-            //     predicates = criteriaBuilder.and(
-            //         predicates, 
-            //         criteriaBuilder.like(
-            //             criteriaBuilder.upper(pessoaJoin.get("nome")), 
-            //             "%" + filtro.getNomeParte().toUpperCase() + "%"
-            //         )
-            //     );
-            // }
-
             return predicates;
         };
     }
